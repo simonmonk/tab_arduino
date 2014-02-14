@@ -4,8 +4,8 @@ const int switchPins[] = {7, 2, A0, 12};
 const char keys[] = {'a', 's', 'w', 'z'};
 const long debouncePeriod = 50;
 
-boolean pressed[numberOfPins ];
-long lastPressTime[numberOfPins ];
+boolean pressed[numberOfPins];
+long lastPressTime[numberOfPins];
 
 
 void setup()
