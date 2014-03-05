@@ -1,11 +1,13 @@
 
 
-const int ledPinA = A0;
-const int ledPinB = A1;
+const int ledPinA = 6;
+const int ledPinB = 5;
 
 void setup()
 {
  pinMode(ledPinB, OUTPUT);
+ digitalWrite(ledPinB, LOW);
+ Serial.begin(9600);
 }
 
 void loop()

@@ -1,12 +1,12 @@
 
 
-const int ledPinA = A0;
-const int ledPinB = A1;
-const int laserPin = A5;
-const int buttonPin = 8;
-const int alarmPin = 9;
+const int ledPinA = 6;
+const int ledPinB = 5;
+const int laserPin = A1;
+const int buttonPin = A0;
+const int alarmPin = 7;
 
-const int threshold = 100;
+const int laserNoLaserRatio = 3;
 
 boolean alarmTriggered = false;
 
@@ -56,7 +56,7 @@ boolean laserOnTarget()
   delay(10);
   long readingNoLaser = readLightIntensity();
   digitalWrite(laserPin, HIGH);
-  return (readingWithLaser < readingNoLaser - threshold);
+  return (readingWithLaser < (readingNoLaser / laserNoLaserRatio));
 }
 
 void flashLED()

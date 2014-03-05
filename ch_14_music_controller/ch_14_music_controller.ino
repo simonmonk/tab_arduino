@@ -1,8 +1,5 @@
 
-const char upKey = 'u';
-const char downKey = 'd';
-const char leftKey = 'l';
-const char rightKey = 'r';
+const char keyNotes[] = "asdfghjk";
 
 const int gndPin = A2;
 const int xPin = 5;
@@ -11,7 +8,6 @@ const int zPin = 3;
 const int plusPin = A0;
 const int pin3V = A1;
 
-const int tiltThreshold = 30;
 const int offset = 340;
 
 void setup()
@@ -20,33 +16,26 @@ void setup()
   digitalWrite(gndPin, LOW);
   pinMode(plusPin, OUTPUT);
   digitalWrite(plusPin, HIGH);
-  pinMode(pin3V, INPUT); // 3V output - cxareful!
-  //Serial.begin(9600);
+  pinMode(pin3V, INPUT); // 3V output - careful!
   Keyboard.begin();
 }
 
 void loop()
 {
+  static int lastKeyIndex = 0;
   int x = analogRead(xPin) - offset;
   int y = analogRead(yPin) - offset;
-  //Serial.print(x); Serial.print(" "); Serial.println(y);
-  if (y > tiltThreshold)
+  Serial.print(x); Serial.print(" "); Serial.println(y);
+  // -50 to + 50
+  int keyIndex = (y + 50) / 12;
+  if (keyIndex < 0) keyIndex = 0;
+  if (keyIndex > 7) keyIndex = 7;
+  if (keyIndex != lastKeyIndex && (abs(x) < 20))
   {
-    Keyboard.print(upKey);
+    Keyboard.releaseAll();
+    Keyboard.press(keyNotes[keyIndex]);
+    lastKeyIndex = keyIndex;
+    delay(30);
   }
-  else if (y < -tiltThreshold)
-  {
-    Keyboard.print(downKey);
-  }
-  // not an else if deliberately
-  if (x > tiltThreshold)
-  {
-    Keyboard.print(rightKey);
-  }
-  else if (x < -tiltThreshold)
-  {
-    Keyboard.print(leftKey);
-  }
-  delay(100);
 }
 

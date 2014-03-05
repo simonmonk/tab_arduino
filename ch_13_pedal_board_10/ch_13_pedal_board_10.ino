@@ -1,7 +1,7 @@
 
-const int numberOfPins  = 4;
-const int switchPins[] = {7, 2, A0, 12};
-const char keys[] = {'a', 's', 'w', 'z'};
+const int numberOfPins  = 10;
+const int switchPins[] = {5, 7, 4, 2, A2, A4, 6, 3, A3, A5 };
+const char keys[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 const long debouncePeriod = 50;
 
 boolean pressed[numberOfPins ];
