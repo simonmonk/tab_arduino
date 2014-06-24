@@ -67,7 +67,7 @@ void displayBoard()
 
 void loop() 
 {
-  if (analogRead(A3) > 512)
+  if (analogRead(A3) < 512)
   {
     displayBoard();
     updateGeneration();
