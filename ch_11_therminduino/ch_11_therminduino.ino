@@ -13,9 +13,9 @@ Oscil <SIN2048_NUM_CELLS, AUDIO_RATE> aSin(SIN2048_DATA);
 int trigPin = 11;
 int echoPin = 12;
 
-
 void setup()
 {
+  Serial.begin(9600);
   startMozzi(CONTROL_RATE); // set a control rate of 64 (powers of 2 please)
   aSin.setFreq(440); // set the frequency with an unsigned int or a float
   pinMode(trigPin, OUTPUT);
@@ -26,7 +26,10 @@ void setup()
 void updateControl()
 {
   float s = takeSounding();
-  aSin.setFreq(s);
+  if (s > 100 && s < 2000)
+  {
+    aSin.setFreq(s / 2);
+  }
 }
 
 
@@ -50,8 +53,7 @@ float takeSounding()
   delayMicroseconds(10); 
   digitalWrite(trigPin, LOW); 
   delayMicroseconds(2); 
-  int duration = pulseIn(echoPin, HIGH, 1000); 
-  if (duration > 1000) duration = 1000;
-  return (float)duration / 2.0;
+  int duration = pulseIn(echoPin, HIGH, 10000L); 
+  return (float)duration;
 }
 
